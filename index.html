@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carlo Broschi — Independent Researcher</title>
+<meta name="description" content="Independent researcher working in molecular phylogenetics, linguistic typology, historical musicology, and philosophy of science.">
+<style>
+  :root {
+    --ground:    #f0efea;
+    --ground-2:  #e5e4de;
+    --ground-3:  #d8d7d0;
+    --text:      #1a1917;
+    --text-2:    #6e6c67;
+    --accent:    #3a6640;
+    --accent-hi: #2c5031;
+    --border:    #cccac2;
+
+    --font-serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --font-mono:  "SF Mono", Monaco, "Cascadia Mono", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:    #111110;
+      --ground-2:  #1c1b19;
+      --ground-3:  #252421;
+      --text:      #e5e4df;
+      --text-2:    #888580;
+      --accent:    #6aaa6f;
+      --accent-hi: #8fcb94;
+      --border:    #2c2b28;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:    #111110;
+    --ground-2:  #1c1b19;
+    --ground-3:  #252421;
+    --text:      #e5e4df;
+    --text-2:    #888580;
+    --accent:    #6aaa6f;
+    --accent-hi: #8fcb94;
+    --border:    #2c2b28;
+  }
+  :root[data-theme="light"] {
+    --ground:    #f0efea;
+    --ground-2:  #e5e4de;
+    --ground-3:  #d8d7d0;
+    --text:      #1a1917;
+    --text-2:    #6e6c67;
+    --accent:    #3a6640;
+    --accent-hi: #2c5031;
+    --border:    #cccac2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ── Theme toggle ── */
+  .toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: var(--ground-2);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3em 0.75em;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    z-index: 100;
+  }
+  .toggle:hover { color: var(--accent); border-color: var(--accent); }
+  .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ── Header ── */
+  header {
+    padding: 5.5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-name {
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 7vw, 4.25rem);
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    color: var(--text);
+    text-wrap: balance;
+  }
+
+  .site-role {
+    margin-top: 0.5rem;
+    font-size: 0.8125rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .site-desc {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: var(--text-2);
+    max-width: 54ch;
+    line-height: 1.7;
+  }
+
+  .header-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .header-links a {
+    font-size: 0.8125rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .header-links a:hover { color: var(--accent); }
+
+  /* ── Sections ── */
+  section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+
+  .eyebrow {
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin-bottom: 2rem;
+  }
+
+  /* ── Research domains ── */
+  .domains {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 1px;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+
+  .domain {
+    background: var(--ground);
+    padding: 1.625rem 1.5rem;
+    display: block;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .domain:hover { background: var(--ground-2); }
+  .domain:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .domain-num {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-2);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .domain-name {
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: normal;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 0.625rem;
+  }
+
+  .domain-desc {
+    font-size: 0.875rem;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+
+  .domain-tag {
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+  }
+
+  /* ── Papers ── */
+  .papers { display: flex; flex-direction: column; gap: 0; }
+
+  .paper {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .paper:first-child { border-top: 1px solid var(--border); }
+
+  .paper-main {}
+
+  .paper-id {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-2);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3rem;
+  }
+
+  .paper-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.9375rem;
+    color: var(--text);
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+  }
+
+  .paper-venue {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+
+  .paper-status { padding-top: 0.2rem; }
+
+  /* chips */
+  .chip {
+    display: inline-block;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 0.25em 0.6em;
+    white-space: nowrap;
+  }
+  .chip-review   { background: #ddeaf8; color: #1a4a8a; }
+  .chip-draft    { background: #fef0d0; color: #7a4a00; }
+  .chip-progress { background: #ddeedd; color: #2a5230; }
+  .chip-planned  { background: var(--ground-3); color: var(--text-2); }
+
+  @media (prefers-color-scheme: dark) {
+    .chip-review   { background: #182a44; color: #7ab4f0; }
+    .chip-draft    { background: #38280a; color: #f0c040; }
+    .chip-progress { background: #182a1a; color: #6aaa6f; }
+  }
+  :root[data-theme="dark"] .chip-review   { background: #182a44; color: #7ab4f0; }
+  :root[data-theme="dark"] .chip-draft    { background: #38280a; color: #f0c040; }
+  :root[data-theme="dark"] .chip-progress { background: #182a1a; color: #6aaa6f; }
+  :root[data-theme="light"] .chip-review   { background: #ddeaf8; color: #1a4a8a; }
+  :root[data-theme="light"] .chip-draft    { background: #fef0d0; color: #7a4a00; }
+  :root[data-theme="light"] .chip-progress { background: #ddeedd; color: #2a5230; }
+  :root[data-theme="light"] .chip-planned  { background: var(--ground-3); color: var(--text-2); }
+
+  /* ── Stack ── */
+  .stack { display: flex; flex-direction: column; gap: 0.875rem; }
+
+  .stack-row {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.5rem;
+    align-items: baseline;
+  }
+
+  .stack-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    padding-top: 0.1em;
+  }
+
+  .stack-items {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text);
+    line-height: 1.85;
+  }
+
+  /* ── Footer ── */
+  footer {
+    padding: 2.5rem 0 4rem;
+  }
+
+  footer p {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+    line-height: 1.7;
+  }
+
+  footer a {
+    color: var(--text-2);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ── Responsive ── */
+  @media (max-width: 580px) {
+    .wrap { padding: 0 1.25rem; }
+    header { padding: 4rem 0 3rem; }
+    section { padding: 2.75rem 0; }
+    .domains { grid-template-columns: 1fr; }
+    .paper { grid-template-columns: 1fr; }
+    .paper-status { padding-top: 0; }
+    .stack-row { grid-template-columns: 1fr; gap: 0.2rem; }
+    .toggle { top: 0.875rem; right: 1rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<button class="toggle" onclick="toggleTheme()" aria-label="Toggle theme">Theme</button>
+
+<div class="wrap">
+
+  <!-- Header -->
+  <header>
+    <h1 class="site-name">Carlo Broschi</h1>
+    <p class="site-role">Independent Researcher</p>
+    <p class="site-desc">
+      Working across molecular phylogenetics, linguistic typology,
+      historical musicology, and philosophy of science.
+      Sixteen papers in progress as sole author.
+    </p>
+    <nav class="header-links" aria-label="External links">
+      <a href="https://github.com/Carlo-Broschi">GitHub</a>
+      <a href="https://github.com/Carlo-Broschi/Carlo-Broschi">About</a>
+    </nav>
+  </header>
+
+  <!-- Research -->
+  <section aria-labelledby="research-heading">
+    <p class="eyebrow" id="research-heading">Research</p>
+    <div class="domains">
+
+      <a class="domain" href="https://github.com/Carlo-Broschi?tab=repositories&q=bio">
+        <span class="domain-num">I</span>
+        <div class="domain-name">Molecular phylogenetics</div>
+        <p class="domain-desc">
+          Evolutionary fate of the Sm/Lsm/Hfq fold across the three domains of life.
+          Structure-informed phylogeny, genome reduction, DPANN/Asgard archaea.
+        </p>
+        <div class="domain-tag">bio-a · bio-b · bio-c</div>
+      </a>
+
+      <a class="domain" href="https://github.com/Carlo-Broschi?tab=repositories&q=lang-a">
+        <span class="domain-num">II</span>
+        <div class="domain-name">Linguistic typology</div>
+        <p class="domain-desc">
+          Quantitative reanalysis of cross-linguistic databases (Grambank, WALS, AUTOTYP).
+          Bayesian contact modeling, measurement invariance, IRT/DIF.
+        </p>
+        <div class="domain-tag">lang-a1 · lang-a2 · lang-a3</div>
+      </a>
+
+      <a class="domain" href="https://github.com/Carlo-Broschi?tab=repositories&q=lang-b">
+        <span class="domain-num">III</span>
+        <div class="domain-name">Grammatical formalization</div>
+        <p class="domain-desc">
+          Typed feature structures and unification applied to subject selection,
+          modality, switch-reference, and conditional typology.
+          ALE · Grammar Matrix · ACE · RRG.
+        </p>
+        <div class="domain-tag">lang-b1 · lang-b2 · lang-c · lang-d · lang-e</div>
+      </a>
+
+      <a class="domain" href="https://github.com/Carlo-Broschi?tab=repositories&q=music">
+        <span class="domain-num">IV</span>
+        <div class="domain-name">Historical musicology</div>
+        <p class="domain-desc">
+          The transition from the castrato to the countertenor in Western art music.
+          A two-axis argument distinguishing vocal mechanism from repertoire continuity.
+        </p>
+        <div class="domain-tag">music-a · music-b</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Papers -->
+  <section aria-labelledby="papers-heading">
+    <p class="eyebrow" id="papers-heading">Papers</p>
+    <div class="papers">
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-a1</div>
+          <div class="paper-title">Mapping Global Grammatical Diversity: A Network Analysis of Vertical and Horizontal Transmission in Grambank v1.0</div>
+          <div class="paper-venue">Language Dynamics and Change</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-review">Under review</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">bio-c</div>
+          <div class="paper-title">The Fate of the Sm Fold under Genome Reduction: A Structure-Informed Three-Domain Phylogeny</div>
+          <div class="paper-venue">Genome Biology and Evolution · Zenodo 10.5281/zenodo.21202213</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-draft">Draft</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-a2</div>
+          <div class="paper-title">Per-feature Estimation of Vertical and Horizontal Transmission in Grambank</div>
+          <div class="paper-venue">Language Dynamics and Change</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-progress">In progress</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-a3</div>
+          <div class="paper-title">Differential Item Functioning in Typological Databases: Measurement Invariance across Macroareas in Grambank, WALS, and AUTOTYP</div>
+          <div class="paper-venue">Measurement: Interdisciplinary Research and Perspectives</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-progress">In progress</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">music-a</div>
+          <div class="paper-title">Mechanism and Function: Rethinking the Castrato–Countertenor Transition</div>
+          <div class="paper-venue">Early Music (Oxford University Press)</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-planned">Planned 2028</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-b1</div>
+          <div class="paper-title">Subject Selection Rules in Case Grammar: A Cross-linguistic Extension</div>
+          <div class="paper-venue">Constructions and Frames</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-planned">Planned 2030</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-b2a · lang-b2b</div>
+          <div class="paper-title">Rethinking Modality in Case Grammar / A Grammar Matrix Modality Library</div>
+          <div class="paper-venue">Glossa · Journal of Language Modelling</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-planned">Planned 2034</span></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-main">
+          <div class="paper-id">lang-c · lang-d · lang-e</div>
+          <div class="paper-title">Fillmore Intellectual History · Switch-Reference Formalization · RRG Operator Projection</div>
+          <div class="paper-venue">Various</div>
+        </div>
+        <div class="paper-status"><span class="chip chip-planned">Planned 2040s–50s</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Stack -->
+  <section aria-labelledby="stack-heading">
+    <p class="eyebrow" id="stack-heading">Stack</p>
+    <div class="stack">
+      <div class="stack-row">
+        <span class="stack-label">Languages</span>
+        <span class="stack-items">Python · R · Stan · SQLite · Prolog · Lisp</span>
+      </div>
+      <div class="stack-row">
+        <span class="stack-label">Bioinformatics</span>
+        <span class="stack-items">MAFFT · IQ-TREE · MrBayes · ESMFold · Foldseek</span>
+      </div>
+      <div class="stack-row">
+        <span class="stack-label">Statistics</span>
+        <span class="stack-items">brms · Stan · lavaan</span>
+      </div>
+      <div class="stack-row">
+        <span class="stack-label">DELPH-IN</span>
+        <span class="stack-items">LinGO Grammar Matrix · ACE · LKB-FOS · TDL · MRS · pydelphin</span>
+      </div>
+      <div class="stack-row">
+        <span class="stack-label">Formalization</span>
+        <span class="stack-items">ALE · SWI-Prolog · FCG</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      Carlo Broschi is the birth name of
+      <a href="https://en.wikipedia.org/wiki/Farinelli" target="_blank" rel="noopener">Farinelli</a>
+      (1705–1782).
+      ·
+      <a href="https://github.com/Carlo-Broschi">github.com/Carlo-Broschi</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    const stored = localStorage.getItem('theme');
+    if (stored) document.documentElement.setAttribute('data-theme', stored);
+  })();
+
+  function toggleTheme() {
+    const root = document.documentElement;
+    const current = root.getAttribute('data-theme');
+    const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    const next = (current || sys) === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  }
+</script>
+
+</body>
+</html>
