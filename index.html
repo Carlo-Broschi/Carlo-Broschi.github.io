@@ -3,729 +3,727 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carlo Broschi — Independent Researcher</title>
-<meta name="description" content="Independent researcher working in molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science.">
+<title>Carlo Broschi</title>
 <style>
+/* ── Design plan ──────────────────────────────────────────
+   Color:  parchment #f0efea ground / warm near-black #1c1917 sidebar /
+           botanical green #3a6640 accent / ink #1a1917 / muted #6e6c67
+   Type:   Palatino serif for display + name; system-ui for body; SF Mono for IDs
+   Layout: fixed dark sidebar (240px) + scrollable parchment main;
+           dark sidebar persists across both themes — the main flips
+   Field:  four muted left-border hues (green/slate/plum/amber) as the
+           only color distinction; never used for fills, only 2–3px rails
+   ─────────────────────────────────────────────────────── */
+
+:root {
+  --gr:    #f0efea;
+  --gr2:   #e5e4de;
+  --gr3:   #d8d7d0;
+  --ink:   #1a1917;
+  --ink2:  #6e6c67;
+  --acc:   #3a6640;
+  --bd:    #cccac2;
+  --sb-bg: #1c1917;
+  --sb-tx: #b2b0aa;
+  --sb-ac: #6aaa6f;
+  --sb-bd: #2e2b27;
+  --f-bio: #3a6640;
+  --f-lin: #3d5a7a;
+  --f-phi: #6b4e71;
+  --f-mus: #8a5c30;
+  --sb:    240px;
+  --serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --mono:  "SF Mono", Monaco, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
   :root {
-    --ground:    #f0efea;
-    --ground-2:  #e5e4de;
-    --ground-3:  #d8d7d0;
-    --text:      #1a1917;
-    --text-2:    #6e6c67;
-    --accent:    #3a6640;
-    --border:    #cccac2;
-
-    --font-serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
-    --font-sans:  -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    --font-mono:  "SF Mono", Monaco, "Cascadia Mono", Consolas, monospace;
+    --gr: #111110; --gr2: #1c1b19; --gr3: #252421;
+    --ink: #e5e4df; --ink2: #888580; --acc: #6aaa6f; --bd: #2c2b28;
+    --sb-bg: #0d0d0c; --sb-tx: #908e88; --sb-ac: #6aaa6f; --sb-bd: #252421;
   }
+}
+:root[data-theme="dark"] {
+  --gr: #111110; --gr2: #1c1b19; --gr3: #252421;
+  --ink: #e5e4df; --ink2: #888580; --acc: #6aaa6f; --bd: #2c2b28;
+  --sb-bg: #0d0d0c; --sb-tx: #908e88; --sb-ac: #6aaa6f; --sb-bd: #252421;
+}
+:root[data-theme="light"] {
+  --gr: #f0efea; --gr2: #e5e4de; --gr3: #d8d7d0;
+  --ink: #1a1917; --ink2: #6e6c67; --acc: #3a6640; --bd: #cccac2;
+  --sb-bg: #1c1917; --sb-tx: #b2b0aa; --sb-ac: #6aaa6f; --sb-bd: #2e2b27;
+}
+:root[data-theme="dark"] .chip-review  { background: #182a44; color: #7ab4f0; }
+:root[data-theme="dark"] .chip-draft   { background: #38280a; color: #f0c040; }
+:root[data-theme="dark"] .chip-prog    { background: #182a1a; color: #6aaa6f; }
+@media (prefers-color-scheme: dark) {
+  .chip-review { background: #182a44; color: #7ab4f0; }
+  .chip-draft  { background: #38280a; color: #f0c040; }
+  .chip-prog   { background: #182a1a; color: #6aaa6f; }
+}
+:root[data-theme="light"] .chip-review { background: #ddeaf8; color: #1a4a8a; }
+:root[data-theme="light"] .chip-draft  { background: #fef0d0; color: #7a4a00; }
+:root[data-theme="light"] .chip-prog   { background: #ddeedd; color: #2a5230; }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ground:    #111110;
-      --ground-2:  #1c1b19;
-      --ground-3:  #252421;
-      --text:      #e5e4df;
-      --text-2:    #888580;
-      --accent:    #6aaa6f;
-      --border:    #2c2b28;
-    }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  display: flex;
+  min-height: 100vh;
+  background: var(--gr);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── Sidebar ─────────────────────────────────────────── */
+.sb {
+  position: fixed; top: 0; left: 0;
+  width: var(--sb); height: 100vh;
+  background: var(--sb-bg);
+  display: flex; flex-direction: column;
+  padding: 2.25rem 1.875rem;
+  overflow-y: auto; z-index: 100;
+}
+.sb-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: #e8e6e0;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.35rem;
+}
+.sb-role {
+  font-size: 0.5625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sb-tx);
+  margin-bottom: 2.75rem;
+}
+.sb-nav {
+  display: flex; flex-direction: column;
+  gap: 0; flex: 1;
+}
+.sb-link {
+  font-size: 0.8125rem;
+  color: var(--sb-tx);
+  padding: 0.45rem 0;
+  display: flex; align-items: center; gap: 0.6rem;
+  cursor: pointer;
+  border: none; background: none;
+  text-align: left; width: 100%;
+  font-family: var(--sans);
+  letter-spacing: 0.02em;
+  transition: color 0.15s;
+  text-decoration: none;
+}
+.sb-link:hover { color: #e8e6e0; }
+.sb-link.active { color: var(--sb-ac); }
+.sb-link::before {
+  content: '';
+  display: block;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: transparent;
+  transition: background 0.15s;
+}
+.sb-link.active::before { background: var(--sb-ac); }
+
+.sb-sep { height: 1px; background: var(--sb-bd); margin: 1.25rem 0; }
+.sb-foot { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--sb-bd); }
+.sb-gh {
+  font-size: 0.6875rem; font-family: var(--mono);
+  color: var(--sb-tx); text-decoration: none;
+  display: block; margin-bottom: 1rem;
+  transition: color 0.15s;
+  word-break: break-all;
+}
+.sb-gh:hover { color: var(--sb-ac); }
+.sb-theme {
+  font-size: 0.5625rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sb-tx);
+  background: none; border: 1px solid var(--sb-bd);
+  padding: 0.3em 0.75em; cursor: pointer;
+  font-family: var(--sans); transition: all 0.15s;
+}
+.sb-theme:hover { border-color: var(--sb-ac); color: var(--sb-ac); }
+.sb-theme:focus-visible { outline: 2px solid var(--sb-ac); outline-offset: 2px; }
+
+/* ── Main ────────────────────────────────────────────── */
+.main {
+  margin-left: var(--sb);
+  flex: 1;
+  padding: 4rem 3.5rem 7rem;
+  max-width: calc(var(--sb) + 780px);
+}
+.page { display: none; }
+.page.on { display: block; }
+
+/* ── Shared ──────────────────────────────────────────── */
+.eyebrow {
+  font-size: 0.5625rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink2);
+  margin-bottom: 2.25rem;
+}
+.rule { border: none; border-top: 1px solid var(--bd); }
+
+/* left-border rails by field */
+[data-f]::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 2px; height: 100%;
+}
+[data-f="biology"]::before    { background: var(--f-bio); }
+[data-f="linguistics"]::before { background: var(--f-lin); }
+[data-f="philosophy"]::before  { background: var(--f-phi); }
+[data-f="music"]::before       { background: var(--f-mus); }
+
+/* ── Home ────────────────────────────────────────────── */
+.hero {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 3rem;
+}
+.hero-name {
+  font-family: var(--serif);
+  font-style: italic; font-weight: normal;
+  font-size: clamp(2.625rem, 5vw, 3.75rem);
+  line-height: 1.04; letter-spacing: -0.025em;
+  text-wrap: balance;
+  margin-bottom: 0.6rem;
+}
+.hero-role {
+  font-size: 0.625rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--acc);
+  margin-bottom: 1.375rem;
+}
+.hero-desc {
+  font-size: 0.9375rem; color: var(--ink2);
+  max-width: 50ch; line-height: 1.72;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--bd);
+  gap: 1px; background: var(--bd);
+}
+.ftile {
+  background: var(--gr);
+  padding: 1.875rem 1.875rem 1.875rem 2.25rem;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: background 0.15s;
+}
+.ftile:hover { background: var(--gr2); }
+.ftile-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  line-height: 1.2; color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.ftile-meta {
+  font-family: var(--mono);
+  font-size: 0.625rem; color: var(--ink2);
+  letter-spacing: 0.06em; margin-bottom: 0.7rem;
+}
+.ftile-desc { font-size: 0.8125rem; color: var(--ink2); line-height: 1.62; }
+
+/* ── Research ────────────────────────────────────────── */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 2.5rem; gap: 0;
+}
+.tab {
+  font-size: 0.75rem; letter-spacing: 0.05em;
+  padding: 0.625rem 1.125rem 0.7rem;
+  border: none; background: none;
+  color: var(--ink2); cursor: pointer;
+  font-family: var(--sans);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab:hover { color: var(--ink); }
+.tab.on { color: var(--acc); border-bottom-color: var(--acc); }
+
+.topics { display: flex; flex-direction: column; }
+.topic {
+  padding: 1.625rem 0 1.625rem 1.375rem;
+  border-bottom: 1px solid var(--bd);
+  position: relative;
+}
+.topic:first-child { border-top: 1px solid var(--bd); }
+.topic-ttl {
+  font-family: var(--serif); font-weight: normal;
+  font-size: 1.0rem; line-height: 1.4; color: var(--ink);
+  margin-bottom: 0.375rem;
+}
+.topic-repos {
+  font-family: var(--mono); font-size: 0.6875rem;
+  color: var(--acc); letter-spacing: 0.04em;
+  margin-bottom: 0.6rem;
+}
+.topic-desc {
+  font-size: 0.875rem; color: var(--ink2);
+  line-height: 1.72; max-width: 58ch;
+}
+
+/* ── Publications ────────────────────────────────────── */
+.filters {
+  display: flex; flex-direction: column; gap: 0.75rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 1.375rem;
+}
+.frow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.flabel {
+  font-size: 0.5625rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink2);
+  width: 3.25rem; flex-shrink: 0;
+}
+.fbtn {
+  font-size: 0.6875rem; letter-spacing: 0.03em;
+  padding: 0.28em 0.75em;
+  border: 1px solid var(--bd);
+  background: none; color: var(--ink2);
+  cursor: pointer; font-family: var(--sans);
+  transition: all 0.12s;
+}
+.fbtn:hover { border-color: var(--ink2); color: var(--ink); }
+.fbtn.on { background: var(--acc); border-color: var(--acc); color: #fff; }
+.fbtn:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+
+.pcount {
+  font-size: 0.75rem; color: var(--ink2);
+  margin-bottom: 1.125rem;
+  font-variant-numeric: tabular-nums;
+}
+.pubs { display: flex; flex-direction: column; }
+.pub {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 0.75rem 1.5rem;
+  padding: 1.125rem 0 1.125rem 1.25rem;
+  border-bottom: 1px solid var(--bd);
+  align-items: start; position: relative;
+}
+.pub:first-child { border-top: 1px solid var(--bd); }
+.pub-id {
+  font-family: var(--mono); font-size: 0.625rem;
+  color: var(--ink2); letter-spacing: 0.06em;
+  margin-bottom: 0.3rem;
+}
+.pub-ttl {
+  font-family: var(--serif); font-style: italic;
+  font-size: 0.9rem; line-height: 1.46; color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.pub-venue { font-size: 0.7875rem; color: var(--ink2); }
+.chip {
+  font-size: 0.575rem; letter-spacing: 0.1em;
+  text-transform: uppercase; font-weight: 600;
+  padding: 0.28em 0.65em; white-space: nowrap;
+  flex-shrink: 0; align-self: start; margin-top: 0.2rem;
+}
+.chip-review  { background: #ddeaf8; color: #1a4a8a; }
+.chip-draft   { background: #fef0d0; color: #7a4a00; }
+.chip-prog    { background: #ddeedd; color: #2a5230; }
+.chip-planned { background: var(--gr3); color: var(--ink2); }
+
+/* ── About ───────────────────────────────────────────── */
+.about-p {
+  font-size: 0.9375rem;
+  color: var(--ink2);
+  line-height: 1.78;
+  max-width: 62ch;
+  margin-bottom: 1.25rem;
+}
+.about-meta {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--bd);
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+.about-block { min-width: 12rem; }
+.about-block-label {
+  font-size: 0.5625rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ink2);
+  margin-bottom: 1rem;
+}
+.about-entries { display: flex; gap: 2rem; flex-wrap: wrap; }
+.about-entry { margin-bottom: 0; }
+.about-entry-degree {
+  font-family: var(--mono); font-size: 0.625rem;
+  color: var(--acc); letter-spacing: 0.06em;
+  margin-bottom: 0.15rem;
+}
+.about-entry-inst {
+  font-family: var(--serif); font-size: 0.9375rem;
+  font-style: italic; color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+.about-entry-det { font-size: 0.8rem; color: var(--ink2); line-height: 1.5; }
+
+/* ── Contact ─────────────────────────────────────────── */
+.contact-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--bd);
+}
+.contact-row {
+  display: grid; grid-template-columns: 5rem 1fr;
+  gap: 0.5rem 1.5rem;
+  padding: 1.125rem 0;
+  border-bottom: 1px solid var(--bd);
+  align-items: baseline;
+}
+.contact-label {
+  font-size: 0.625rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink2);
+}
+.contact-val {
+  font-family: var(--mono); font-size: 0.875rem;
+  color: var(--ink); text-decoration: none;
+  transition: color 0.15s;
+}
+.contact-val:hover { color: var(--acc); }
+
+/* ── Stack ───────────────────────────────────────────── */
+.stack { display: flex; flex-direction: column; }
+.srow {
+  display: grid; grid-template-columns: 7rem 1fr;
+  gap: 0.5rem 1.5rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--bd);
+  align-items: baseline;
+}
+.srow:first-child { border-top: 1px solid var(--bd); }
+.slabel {
+  font-size: 0.625rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink2);
+}
+.svals {
+  font-family: var(--mono); font-size: 0.8125rem;
+  color: var(--ink); line-height: 1.85;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 700px) {
+  body { flex-direction: column; }
+  .sb {
+    position: relative; width: 100%; height: auto;
+    flex-direction: row; align-items: center;
+    padding: 1rem 1.25rem; gap: 1rem;
   }
-  :root[data-theme="dark"] {
-    --ground:    #111110;
-    --ground-2:  #1c1b19;
-    --ground-3:  #252421;
-    --text:      #e5e4df;
-    --text-2:    #888580;
-    --accent:    #6aaa6f;
-    --border:    #2c2b28;
-  }
-  :root[data-theme="light"] {
-    --ground:    #f0efea;
-    --ground-2:  #e5e4de;
-    --ground-3:  #d8d7d0;
-    --text:      #1a1917;
-    --text-2:    #6e6c67;
-    --accent:    #3a6640;
-    --border:    #cccac2;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--ground);
-    color: var(--text);
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .wrap { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
-
-  /* ── Theme toggle ── */
-  .toggle {
-    position: fixed;
-    top: 1.25rem;
-    right: 1.5rem;
-    background: var(--ground-2);
-    border: 1px solid var(--border);
-    color: var(--text-2);
-    font-family: var(--font-sans);
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 0.3em 0.75em;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-    z-index: 100;
-  }
-  .toggle:hover { color: var(--accent); border-color: var(--accent); }
-  .toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-
-  /* ── Header ── */
-  header { padding: 5.5rem 0 4rem; border-bottom: 1px solid var(--border); }
-
-  .site-name {
-    font-family: var(--font-serif);
-    font-size: clamp(2.75rem, 7vw, 4.25rem);
-    font-weight: normal;
-    font-style: italic;
-    letter-spacing: -0.025em;
-    line-height: 1.05;
-    text-wrap: balance;
-  }
-
-  .site-role {
-    margin-top: 0.5rem;
-    font-size: 0.8125rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .site-desc {
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    color: var(--text-2);
-    max-width: 54ch;
-    line-height: 1.7;
-  }
-
-  .header-links { margin-top: 2rem; display: flex; gap: 1.75rem; flex-wrap: wrap; }
-  .header-links a {
-    font-size: 0.8125rem;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--text-2);
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .header-links a:hover { color: var(--accent); }
-
-  /* ── Sections ── */
-  section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
-
-  .eyebrow {
-    font-size: 0.6875rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-2);
-    margin-bottom: 2rem;
-  }
-
-  /* ── Research domains (expandable) ── */
-  .domains { border: 1px solid var(--border); }
-
-  details.domain { border-bottom: 1px solid var(--border); }
-  details.domain:last-child { border-bottom: none; }
-
-  details.domain summary {
-    list-style: none;
-    padding: 1.375rem 1.5rem;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 2.25rem 1fr 1.5rem;
-    gap: 0 0.75rem;
-    align-items: start;
-    transition: background 0.15s;
-    user-select: none;
-  }
-  details.domain summary::-webkit-details-marker { display: none; }
-  details.domain summary::marker { display: none; }
-  details.domain summary:hover { background: var(--ground-2); }
-  details.domain[open] summary { background: var(--ground-2); }
-  details.domain summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-
-  .domain-num {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--text-2);
-    letter-spacing: 0.04em;
-    padding-top: 0.2em;
-  }
-
-  .domain-head {}
-
-  .domain-name {
-    font-family: var(--font-serif);
-    font-size: 1.0625rem;
-    font-weight: normal;
-    color: var(--text);
-    line-height: 1.3;
-  }
-
-  .domain-brief {
-    margin-top: 0.3rem;
-    font-size: 0.8125rem;
-    color: var(--text-2);
-    line-height: 1.5;
-  }
-
-  .domain-toggle {
-    color: var(--text-2);
-    font-size: 1.25rem;
-    font-weight: 300;
-    text-align: right;
-    padding-top: 0.05em;
-    line-height: 1;
-    transition: transform 0.2s;
-  }
-  details.domain[open] .domain-toggle { transform: rotate(45deg); }
-
-  .domain-body {
-    padding: 0 1.5rem 1.5rem calc(1.5rem + 2.25rem + 0.75rem);
-  }
-
-  .domain-desc {
-    font-size: 0.9rem;
-    color: var(--text-2);
-    line-height: 1.75;
-    max-width: 60ch;
-  }
-
-  .domain-repos {
-    margin-top: 1rem;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--accent);
-  }
-
-  /* ── Papers ── */
-  .papers { display: flex; flex-direction: column; }
-
-  .paper {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 0.5rem 1.5rem;
-    padding: 1.25rem 0;
-    border-bottom: 1px solid var(--border);
-    align-items: start;
-  }
-  .paper:first-child { border-top: 1px solid var(--border); }
-
-  .paper-id {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--text-2);
-    letter-spacing: 0.05em;
-    margin-bottom: 0.3rem;
-  }
-
-  .paper-title {
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 0.9375rem;
-    color: var(--text);
-    line-height: 1.45;
-    margin-bottom: 0.3rem;
-  }
-
-  .paper-venue { font-size: 0.8125rem; color: var(--text-2); }
-  .paper-status { padding-top: 0.2rem; }
-
-  .chip {
-    display: inline-block;
-    font-size: 0.6rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 600;
-    padding: 0.25em 0.6em;
-    white-space: nowrap;
-  }
-  .chip-review   { background: #ddeaf8; color: #1a4a8a; }
-  .chip-draft    { background: #fef0d0; color: #7a4a00; }
-  .chip-progress { background: #ddeedd; color: #2a5230; }
-  .chip-planned  { background: var(--ground-3); color: var(--text-2); }
-
-  @media (prefers-color-scheme: dark) {
-    .chip-review   { background: #182a44; color: #7ab4f0; }
-    .chip-draft    { background: #38280a; color: #f0c040; }
-    .chip-progress { background: #182a1a; color: #6aaa6f; }
-  }
-  :root[data-theme="dark"] .chip-review   { background: #182a44; color: #7ab4f0; }
-  :root[data-theme="dark"] .chip-draft    { background: #38280a; color: #f0c040; }
-  :root[data-theme="dark"] .chip-progress { background: #182a1a; color: #6aaa6f; }
-  :root[data-theme="light"] .chip-review   { background: #ddeaf8; color: #1a4a8a; }
-  :root[data-theme="light"] .chip-draft    { background: #fef0d0; color: #7a4a00; }
-  :root[data-theme="light"] .chip-progress { background: #ddeedd; color: #2a5230; }
-  :root[data-theme="light"] .chip-planned  { background: var(--ground-3); color: var(--text-2); }
-
-  /* ── Stack ── */
-  .stack { display: flex; flex-direction: column; gap: 0.875rem; }
-
-  .stack-row {
-    display: grid;
-    grid-template-columns: 9rem 1fr;
-    gap: 0.5rem 1.5rem;
-    align-items: baseline;
-  }
-
-  .stack-label {
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-2);
-  }
-
-  .stack-items {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    color: var(--text);
-    line-height: 1.85;
-  }
-
-  /* ── Footer ── */
-  footer { padding: 2.5rem 0 4rem; }
-  footer p { font-size: 0.8125rem; color: var(--text-2); line-height: 1.7; }
-  footer a {
-    color: var(--text-2);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color 0.15s;
-  }
-  footer a:hover { color: var(--accent); }
-
-  /* ── Responsive ── */
-  @media (max-width: 580px) {
-    .wrap { padding: 0 1.25rem; }
-    header { padding: 4rem 0 3rem; }
-    section { padding: 2.75rem 0; }
-    details.domain summary { grid-template-columns: 1.75rem 1fr 1.25rem; padding: 1.25rem; }
-    .domain-body { padding: 0 1.25rem 1.25rem calc(1.25rem + 1.75rem + 0.75rem); }
-    .paper { grid-template-columns: 1fr; }
-    .paper-status { padding-top: 0; }
-    .stack-row { grid-template-columns: 1fr; gap: 0.2rem; }
-    .toggle { top: 0.875rem; right: 1rem; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; }
-  }
+  .sb-role, .sb-nav, .sb-sep, .sb-foot { display: none; }
+  .sb-name { margin-bottom: 0; font-size: 1.0625rem; }
+  .main { margin-left: 0; padding: 2rem 1.25rem 4rem; max-width: 100%; }
+  .field-grid { grid-template-columns: 1fr; }
+  .pub { grid-template-columns: 1fr; }
+  .srow { grid-template-columns: 1fr; gap: 0.2rem; }
+  .about-meta { flex-direction: column; gap: 1.5rem; }
+  .about-entries { flex-direction: column; gap: 1rem; }
+  .contact-row { grid-template-columns: 1fr; gap: 0.25rem; }
+  .tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
-<button class="toggle" onclick="toggleTheme()" aria-label="Toggle theme">Theme</button>
+<!-- ────────── SIDEBAR ────────── -->
+<nav class="sb" aria-label="Site navigation">
+  <div class="sb-name">Carlo Broschi</div>
+  <div class="sb-role">Independent Researcher</div>
+  <div class="sb-nav">
+    <button class="sb-link on" data-page="home"         onclick="nav(this)">Home</button>
+    <button class="sb-link"    data-page="research"     onclick="nav(this)">Research</button>
+    <button class="sb-link"    data-page="publications" onclick="nav(this)">Publications</button>
+    <button class="sb-link"    data-page="stack"        onclick="nav(this)">Stack</button>
+    <div class="sb-sep"></div>
+    <button class="sb-link"    data-page="about"        onclick="nav(this)">About</button>
+    <button class="sb-link"    data-page="contact"      onclick="nav(this)">Contact</button>
+  </div>
+  <div class="sb-foot">
+    <a class="sb-gh" href="https://github.com/Carlo-Broschi" target="_blank" rel="noopener">github.com/Carlo-Broschi</a>
+    <button class="sb-theme" onclick="toggleTheme()">Theme</button>
+  </div>
+</nav>
 
-<div class="wrap">
+<!-- ────────── MAIN ────────── -->
+<main class="main">
 
-  <header>
-    <h1 class="site-name">Carlo Broschi</h1>
-    <p class="site-role">Independent Researcher</p>
-    <p class="site-desc">
-      Working across molecular phylogenetics, linguistic typology,
-      grammatical formalization, historical musicology, and philosophy of science.
-      Sixteen papers in progress as sole author.
-      MA, Keio University · Amateur countertenor.
-    </p>
-    <nav class="header-links" aria-label="External links">
-      <a href="https://github.com/Carlo-Broschi">GitHub</a>
-    </nav>
-  </header>
-
-  <!-- Research -->
-  <section aria-labelledby="research-heading">
-    <p class="eyebrow" id="research-heading">Research</p>
-    <div class="domains">
-
-      <details class="domain">
-        <summary>
-          <span class="domain-num">I</span>
-          <div class="domain-head">
-            <div class="domain-name">Molecular phylogenetics</div>
-            <p class="domain-brief">Evolutionary fate of the Sm/Lsm/Hfq fold across the three domains of life.</p>
-          </div>
-          <span class="domain-toggle" aria-hidden="true">+</span>
-        </summary>
-        <div class="domain-body">
-          <p class="domain-desc">
-            The Sm/Lsm/Hfq superfamily provides a natural experiment in the fate of a protein fold
-            under extreme genome reduction. An integrated study (bio-c) combines a rooted dual-method
-            phylogeny of bacterial Hfq, a three-domain census showing DPANN/Asgard archaea retain
-            the Sm fold universally while the bacterial CPR radiation has lost it entirely,
-            and a comparative analysis of Hfq loss across 71 genomes spanning eight lifestyles —
-            revealing two distinct loss modes: reduction-associated (endosymbionts, mollicutes)
-            and size-independent lineage loss (Actinobacteria, CPR radiation).
-            A follow-on computational study (bio-e) uses E-Cell4 reaction-kinetics modelling
-            and ancestral sequence reconstruction to trace when and where Hfq's active-cycling
-            machinery was built up or eroded across the bacterial tree.
-          </p>
-          <div class="domain-repos">bio-a · bio-b · bio-c · bio-e →
-            <a href="https://github.com/Carlo-Broschi?tab=repositories&q=bio" style="color:inherit;text-decoration:none;">github.com/Carlo-Broschi</a>
-          </div>
-        </div>
-      </details>
-
-      <details class="domain">
-        <summary>
-          <span class="domain-num">II</span>
-          <div class="domain-head">
-            <div class="domain-name">Linguistic typology</div>
-            <p class="domain-brief">Quantitative reanalysis of Grambank, WALS, and AUTOTYP.</p>
-          </div>
-          <span class="domain-toggle" aria-hidden="true">+</span>
-        </summary>
-        <div class="domain-body">
-          <p class="domain-desc">
-            Three papers reanalyse the major cross-linguistic databases using modern statistical methods.
-            The first (lang-a1) characterises the global structure of grammatical diversity using
-            NeighborNet, community detection, and variation partitioning — quantifying how much
-            is genealogical versus areal. The second (lang-a2) estimates per-feature vertical
-            stability and horizontal diffusibility via Bayesian autologistic modelling.
-            The third (lang-a3) applies item response theory and differential item functioning
-            to test measurement invariance: 74.8% of Grambank features show DIF across macroareas,
-            calling into question direct cross-linguistic comparisons.
-            The comparability problem raised here supplies the typological motivation
-            for the formalization programme (Domain III) and connects to the philosophy-of-measurement
-            work (Domain V).
-          </p>
-          <div class="domain-repos">lang-a1 · lang-a2 · lang-a3 →
-            <a href="https://github.com/Carlo-Broschi?tab=repositories&q=lang-a" style="color:inherit;text-decoration:none;">github.com/Carlo-Broschi</a>
-          </div>
-        </div>
-      </details>
-
-      <details class="domain">
-        <summary>
-          <span class="domain-num">III</span>
-          <div class="domain-head">
-            <div class="domain-name">Grammatical formalization</div>
-            <p class="domain-brief">Typed feature structures and unification, motivated by the typological findings of Domain II.</p>
-          </div>
-          <span class="domain-toggle" aria-hidden="true">+</span>
-        </summary>
-        <div class="domain-body">
-          <p class="domain-desc">
-            A long-term programme formalizing neglected problems in case grammar and construction
-            grammar within typed feature structures and unification. Cross-linguistic stability
-            of the subject selection rule (lang-b1); redesign of Fillmore's Modality node
-            as a radial operator category with a companion Grammar Matrix library (lang-b2a/b);
-            intellectual history of case grammar as a research programme (lang-c);
-            switch-reference formalization in Construction Grammar (lang-d);
-            formal justification of RRG's Operator Projection for conditional typology (lang-e).
-            Verification uses the DELPH-IN ecosystem (Grammar Matrix · ACE · LKB-FOS)
-            and independently ALE on SWI-Prolog — a triangulation approach
-            grounded in the same cross-linguistic data as Domain II.
-          </p>
-          <div class="domain-repos">lang-b1 · lang-b2a · lang-b2b · lang-c · lang-d · lang-e →
-            <a href="https://github.com/Carlo-Broschi?tab=repositories&q=lang-b" style="color:inherit;text-decoration:none;">github.com/Carlo-Broschi</a>
-          </div>
-        </div>
-      </details>
-
-      <details class="domain">
-        <summary>
-          <span class="domain-num">IV</span>
-          <div class="domain-head">
-            <div class="domain-name">Historical musicology</div>
-            <p class="domain-brief">The castrato–countertenor transition as a two-axis historical argument.</p>
-          </div>
-          <span class="domain-toggle" aria-hidden="true">+</span>
-        </summary>
-        <div class="domain-body">
-          <p class="domain-desc">
-            A two-paper study separating two claims the field has conflated.
-            Vocal mechanism (castrato phonation cannot be reproduced by falsetto) is discontinuous;
-            repertoire and institutional function are continuous through a centuries-long chain —
-            travesti contralto, English cathedral falsetto tradition, Alfred Deller.
-            Deller is the hinge: both a symptom of the cathedral supply
-            and the cause of a new solo function.
-            The second paper examines contemporary performance practice through discography
-            and archival sources, analysing how modern countertenors engage with castrato repertoire
-            without claiming to restore it.
-          </p>
-          <div class="domain-repos">music-a · music-b →
-            <a href="https://github.com/Carlo-Broschi?tab=repositories&q=music" style="color:inherit;text-decoration:none;">github.com/Carlo-Broschi</a>
-          </div>
-        </div>
-      </details>
-
-      <details class="domain">
-        <summary>
-          <span class="domain-num">V</span>
-          <div class="domain-head">
-            <div class="domain-name">Philosophy of science</div>
-            <p class="domain-brief">Persistently Reproducible Modules and the problem of comparability across special sciences.</p>
-          </div>
-          <span class="domain-toggle" aria-hidden="true">+</span>
-        </summary>
-        <div class="domain-body">
-          <p class="domain-desc">
-            A programme organised around Persistently Reproducible Modules (PRM) —
-            biological structures whose organisation is reproducible across phylogenetically
-            independent lineages, formalizing the intuition behind de Duve's "frozen accidents."
-            Papers address: PRM at the molecular level applied to protein structure (phd-a);
-            a scale-independent hierarchical PRM framework (phd-b);
-            de Duve's typology of biological singularity reconstructed philosophically and
-            tested through PRM (phil-b/c);
-            and the cross-domain problem of comparability and reference in biological
-            and linguistic systematics (phil-a/stat-a),
-            connecting back to the measurement-invariance findings of Domain II.
-          </p>
-          <div class="domain-repos">phd-a · phd-b · phil-a · phil-b · phil-c · stat-a →
-            <a href="https://github.com/Carlo-Broschi?tab=repositories&q=phil" style="color:inherit;text-decoration:none;">github.com/Carlo-Broschi</a>
-          </div>
-        </div>
-      </details>
-
+<!-- HOME -->
+<section class="page on" id="page-home">
+  <div class="hero">
+    <h1 class="hero-name">Carlo Broschi</h1>
+    <p class="hero-role">Independent Researcher</p>
+    <p class="hero-desc">Sole-authored research across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. Twenty-two papers in progress. MA, Keio University. Amateur countertenor.</p>
+  </div>
+  <p class="eyebrow">Fields</p>
+  <div class="field-grid" role="list">
+    <div class="ftile" data-f="biology"     role="listitem" tabindex="0" onclick="goField('biology')"     onkeydown="if(event.key==='Enter')goField('biology')">
+      <div class="ftile-name">Biology</div>
+      <div class="ftile-meta">2 topics · 5 papers</div>
+      <div class="ftile-desc">Molecular phylogenetics of the Sm/Lsm/Hfq superfamily across the three domains of life.</div>
     </div>
-  </section>
-
-  <!-- Papers -->
-  <section aria-labelledby="papers-heading">
-    <p class="eyebrow" id="papers-heading">Papers</p>
-    <div class="papers">
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-a1</div>
-          <div class="paper-title">Mapping Global Grammatical Diversity: A Network Analysis of Vertical and Horizontal Transmission in Grambank v1.0</div>
-          <div class="paper-venue">Language Dynamics and Change</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-review">Under review</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">bio-c</div>
-          <div class="paper-title">The Fate of the Sm Fold under Genome Reduction: A Structure-Informed Three-Domain Phylogeny</div>
-          <div class="paper-venue">Genome Biology and Evolution · Zenodo 10.5281/zenodo.21202213</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-draft">Draft</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-a2</div>
-          <div class="paper-title">Per-feature Estimation of Vertical and Horizontal Transmission in Grambank</div>
-          <div class="paper-venue">Language Dynamics and Change</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-progress">In progress</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-a3</div>
-          <div class="paper-title">Differential Item Functioning in Typological Databases: Measurement Invariance across Macroareas in Grambank, WALS, and AUTOTYP</div>
-          <div class="paper-venue">Measurement: Interdisciplinary Research and Perspectives</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-progress">In progress</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">bio-e</div>
-          <div class="paper-title">Evolution of the Hfq Regulatory Regime: Reaction-Kinetics Modelling and Ancestral Reconstruction of the Active-Cycling Machinery</div>
-          <div class="paper-venue">TBD</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-progress">In progress</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">music-a</div>
-          <div class="paper-title">Mechanism and Function: Rethinking the Castrato–Countertenor Transition</div>
-          <div class="paper-venue">Early Music (Oxford University Press)</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2028</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-b1</div>
-          <div class="paper-title">Subject Selection Rules in Case Grammar: A Cross-linguistic Extension</div>
-          <div class="paper-venue">Constructions and Frames</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2030</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">phd-a</div>
-          <div class="paper-title">Multiple Realizability at the Molecular Level: Applying PRM to Protein Structure</div>
-          <div class="paper-venue">Biology &amp; Philosophy</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2031</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">music-b</div>
-          <div class="paper-title">[Title TBD] — Contemporary performance practice in castrato repertoire</div>
-          <div class="paper-venue">Cambridge Opera Journal</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2031</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-b2a</div>
-          <div class="paper-title">Rethinking Modality in Case Grammar: Redesigning Fillmore's M as an Operator Category</div>
-          <div class="paper-venue">Glossa</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2034</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-b2b</div>
-          <div class="paper-title">A Grammar Matrix Modality Library</div>
-          <div class="paper-venue">Journal of Language Modelling</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2034</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">phd-b</div>
-          <div class="paper-title">Scale-Independent PRM: A Hierarchical Framework for Biological Organization</div>
-          <div class="paper-venue">Biology &amp; Philosophy</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2034</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">phil-b</div>
-          <div class="paper-title">Beyond Homeostasis: Reconstructing de Duve's Typology of Biological Singularity</div>
-          <div class="paper-venue">History and Philosophy of the Life Sciences</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2038</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-c</div>
-          <div class="paper-title">Fillmore as a Grammarian: An Intellectual History of Case Grammar</div>
-          <div class="paper-venue">Historiographia Linguistica</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2040s</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">phil-c</div>
-          <div class="paper-title">Frozen Accidents and Reproducible Modules: de Duve's Singularity through PRM</div>
-          <div class="paper-venue">Biology &amp; Philosophy</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2043</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-d</div>
-          <div class="paper-title">Formalizing the Monitor Area: A Feature-Structure Account of Switch-Reference</div>
-          <div class="paper-venue">Constructions and Frames</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2051</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">phil-a</div>
-          <div class="paper-title">Comparability Generalized: A Formal Extension via FCA and Galois Connections</div>
-          <div class="paper-venue">Synthese</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2051</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">stat-a</div>
-          <div class="paper-title">Comparability and Measurement Invariance: An Empirical Validation of Evolutionary Distance Metrics</div>
-          <div class="paper-venue">Measurement: Interdisciplinary Research and Perspectives</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2051</span></div>
-      </div>
-
-      <div class="paper">
-        <div class="paper-main">
-          <div class="paper-id">lang-e</div>
-          <div class="paper-title">Why Operator Projection? A Formal Justification of RRG for Typological Conditionals</div>
-          <div class="paper-venue">Glossa</div>
-        </div>
-        <div class="paper-status"><span class="chip chip-planned">Planned 2057</span></div>
-      </div>
-
+    <div class="ftile" data-f="linguistics" role="listitem" tabindex="0" onclick="goField('linguistics')" onkeydown="if(event.key==='Enter')goField('linguistics')">
+      <div class="ftile-name">Linguistics</div>
+      <div class="ftile-meta">3 topics · 11 papers</div>
+      <div class="ftile-desc">Quantitative typology and grammatical formalization in typed feature structures.</div>
     </div>
-  </section>
+    <div class="ftile" data-f="philosophy"  role="listitem" tabindex="0" onclick="goField('philosophy')"  onkeydown="if(event.key==='Enter')goField('philosophy')">
+      <div class="ftile-name">Philosophy</div>
+      <div class="ftile-meta">2 topics · 5 papers</div>
+      <div class="ftile-desc">Persistently Reproducible Modules and comparability across the special sciences.</div>
+    </div>
+    <div class="ftile" data-f="music"       role="listitem" tabindex="0" onclick="goField('music')"       onkeydown="if(event.key==='Enter')goField('music')">
+      <div class="ftile-name">Music</div>
+      <div class="ftile-meta">1 topic · 2 papers</div>
+      <div class="ftile-desc">The castrato–countertenor transition as a two-axis historical argument.</div>
+    </div>
+  </div>
+</section>
 
-  <!-- Stack -->
-  <section aria-labelledby="stack-heading">
-    <p class="eyebrow" id="stack-heading">Stack</p>
-    <div class="stack">
-      <div class="stack-row">
-        <span class="stack-label">Languages</span>
-        <span class="stack-items">Python · R · Stan · SQLite · Prolog · Lisp</span>
-      </div>
-      <div class="stack-row">
-        <span class="stack-label">Bioinformatics</span>
-        <span class="stack-items">MAFFT · IQ-TREE · MrBayes · ESMFold · Foldseek</span>
-      </div>
-      <div class="stack-row">
-        <span class="stack-label">Statistics</span>
-        <span class="stack-items">brms · Stan · lavaan</span>
-      </div>
-      <div class="stack-row">
-        <span class="stack-label">DELPH-IN</span>
-        <span class="stack-items">LinGO Grammar Matrix · ACE · LKB-FOS · TDL · MRS · pydelphin</span>
-      </div>
-      <div class="stack-row">
-        <span class="stack-label">Formalization</span>
-        <span class="stack-items">ALE · SWI-Prolog · FCG</span>
+<!-- RESEARCH -->
+<section class="page" id="page-research">
+  <p class="eyebrow">Research</p>
+  <div class="tabs" role="tablist" id="res-tabs">
+    <button class="tab on" role="tab" data-f="all"         onclick="resTab(this)">All</button>
+    <button class="tab"    role="tab" data-f="biology"     onclick="resTab(this)">Biology</button>
+    <button class="tab"    role="tab" data-f="linguistics" onclick="resTab(this)">Linguistics</button>
+    <button class="tab"    role="tab" data-f="philosophy"  onclick="resTab(this)">Philosophy</button>
+    <button class="tab"    role="tab" data-f="music"       onclick="resTab(this)">Music</button>
+  </div>
+  <div class="topics" id="topic-list" role="list"></div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="page" id="page-publications">
+  <p class="eyebrow">Publications</p>
+  <div class="filters">
+    <div class="frow">
+      <span class="flabel">Field</span>
+      <button class="fbtn on" data-t="field" data-v="all"         onclick="filt(this)">All</button>
+      <button class="fbtn"    data-t="field" data-v="biology"     onclick="filt(this)">Biology</button>
+      <button class="fbtn"    data-t="field" data-v="linguistics" onclick="filt(this)">Linguistics</button>
+      <button class="fbtn"    data-t="field" data-v="philosophy"  onclick="filt(this)">Philosophy</button>
+      <button class="fbtn"    data-t="field" data-v="music"       onclick="filt(this)">Music</button>
+    </div>
+    <div class="frow">
+      <span class="flabel">Phase</span>
+      <button class="fbtn on" data-t="phase" data-v="all"      onclick="filt(this)">All</button>
+      <button class="fbtn"    data-t="phase" data-v="review"   onclick="filt(this)">Under review</button>
+      <button class="fbtn"    data-t="phase" data-v="draft"    onclick="filt(this)">Draft</button>
+      <button class="fbtn"    data-t="phase" data-v="progress" onclick="filt(this)">In progress</button>
+      <button class="fbtn"    data-t="phase" data-v="planned"  onclick="filt(this)">Planned</button>
+    </div>
+  </div>
+  <p class="pcount" id="pcount" aria-live="polite"></p>
+  <div class="pubs" id="pub-list" role="list"></div>
+</section>
+
+<!-- ABOUT -->
+<section class="page" id="page-about">
+  <p class="eyebrow">About</p>
+  <p class="about-p">I am an independent researcher working as a sole author across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. The programme spans twenty-two papers, all in progress, and is designed to be carried out over a lifetime.</p>
+  <p class="about-p">The programme has a single deep motivation: evolution. Biological structures change, languages drift, musical traditions transform — and yet comparison across these changes is both indispensable and philosophically fraught. What legitimizes a claim that two proteins share a fold, that two grammatical features are the same, that a countertenor tradition continues a castrato one? The recurring question is what persists through change, and under what conditions persistence licenses comparison.</p>
+  <p class="about-p">The answers I am pursuing are structural rather than historical. Persistently Reproducible Modules formalize what evolution reliably reconstructs across independent lineages; typed feature structures make the basis of grammatical comparison explicit; measurement invariance testing asks whether typological databases actually measure the same thing across macroareas. Each is a different angle on the same problem.</p>
+  <p class="about-p">Outside research I sing as an amateur countertenor.</p>
+  <div class="about-meta">
+    <div class="about-block">
+      <div class="about-block-label">Education</div>
+      <div class="about-entries">
+        <div class="about-entry">
+          <div class="about-entry-degree">MA</div>
+          <div class="about-entry-inst">Keio University</div>
+          <div class="about-entry-det">Linguistic typology · Ohori Laboratory</div>
+        </div>
+        <div class="about-entry">
+          <div class="about-entry-degree">BA</div>
+          <div class="about-entry-inst">Keio University</div>
+          <div class="about-entry-det">Molecular genetics · Tomita Laboratory</div>
+        </div>
       </div>
     </div>
-  </section>
+    <div class="about-block">
+      <div class="about-block-label">Affiliation</div>
+      <div class="about-entry-det">Independent (unaffiliated)</div>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    <p>
-      Carlo Broschi is the birth name of
-      <a href="https://en.wikipedia.org/wiki/Farinelli" target="_blank" rel="noopener">Farinelli</a>
-      (1705–1782).
-      ·
-      <a href="https://github.com/Carlo-Broschi">github.com/Carlo-Broschi</a>
-    </p>
-  </footer>
+<!-- CONTACT -->
+<section class="page" id="page-contact">
+  <p class="eyebrow">Contact</p>
+  <div class="contact-list">
+    <div class="contact-row">
+      <span class="contact-label">Email</span>
+      <a class="contact-val" href="mailto:vivaldi.rv484@gmail.com">vivaldi.rv484@gmail.com</a>
+    </div>
+    <div class="contact-row">
+      <span class="contact-label">GitHub</span>
+      <a class="contact-val" href="https://github.com/Carlo-Broschi" target="_blank" rel="noopener">github.com/Carlo-Broschi</a>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- STACK -->
+<section class="page" id="page-stack">
+  <p class="eyebrow">Stack</p>
+  <div class="stack">
+    <div class="srow"><span class="slabel">Languages</span><span class="svals">Python · R · Stan · SQLite · Prolog · Lisp</span></div>
+    <div class="srow"><span class="slabel">Bioinformatics</span><span class="svals">MAFFT · IQ-TREE · MrBayes · ESMFold · Foldseek</span></div>
+    <div class="srow"><span class="slabel">Statistics</span><span class="svals">brms · Stan · lavaan</span></div>
+    <div class="srow"><span class="slabel">DELPH-IN</span><span class="svals">LinGO Grammar Matrix · ACE · LKB-FOS · TDL · MRS · pydelphin</span></div>
+    <div class="srow"><span class="slabel">Formalization</span><span class="svals">ALE · SWI-Prolog · FCG</span></div>
+  </div>
+</section>
+
+</main>
 
 <script>
-  (function () {
-    const stored = localStorage.getItem('theme');
-    if (stored) document.documentElement.setAttribute('data-theme', stored);
-  })();
+/* ── Data ─────────────────────────────────────────────── */
+const TOPICS = [
+  { f:'biology',     title:'Molecular phylogenetics of the Sm/Lsm/Hfq superfamily', repos:'bio-a · bio-b · bio-c',
+    desc:'The Sm/Lsm/Hfq superfamily provides a natural experiment in the fate of a protein fold under extreme genome reduction. An integrated study combines a rooted dual-method phylogeny of bacterial Hfq, a three-domain census showing DPANN/Asgard archaea retain the Sm fold universally while the bacterial CPR radiation has lost it entirely, and a comparative analysis of Hfq loss across 71 genomes spanning eight lifestyles — revealing two distinct loss modes: reduction-associated and size-independent lineage loss.' },
+  { f:'biology',     title:'Evolution of the Hfq regulatory regime', repos:'bio-e',
+    desc:'A computational study using E-Cell4 reaction-kinetics modelling and ancestral sequence reconstruction to trace when and where Hfq\'s active-cycling machinery was built up or eroded across the bacterial tree.' },
+  { f:'linguistics', title:'Quantitative reanalysis of cross-linguistic databases', repos:'lang-a1 · lang-a2 · lang-a3',
+    desc:'Three papers reanalyse Grambank, WALS, and AUTOTYP using modern statistical methods: NeighborNet and variation partitioning (lang-a1); Bayesian autologistic estimation of per-feature vertical stability and horizontal diffusibility (lang-a2); and item response theory with differential item functioning to test measurement invariance — 74.8% of Grambank features show DIF across macroareas (lang-a3). The comparability problem motivates the formalization programme and connects to the philosophy of science work.' },
+  { f:'linguistics', title:'Grammatical formalization — case grammar', repos:'lang-b1 · lang-b2a · lang-b2b · lang-b3 · lang-c',
+    desc:'A programme formalizing neglected problems in case grammar within typed feature structures and unification. Papers address: cross-linguistic stability of Fillmore\'s subject selection rule; redesign of the Modality node as a radial operator category with a companion Grammar Matrix library; and the intellectual history of case grammar as a research programme. Verification uses the DELPH-IN ecosystem and independently ALE on SWI-Prolog — a triangulation approach. A synthesis project (lang-b3) integrates the subject-selection and modality work into one modernized, TFS-realized Case Grammar.' },
+  { f:'linguistics', title:'Grammatical formalization — construction grammar, RRG, and executable FCG', repos:'lang-d · lang-e · lang-f · lang-g',
+    desc:'Formalization of Ohori\'s monitor area concept for switch-reference within Construction Grammar using typed feature structures (lang-d), and a meta-theoretical justification of RRG\'s Operator Projection as the appropriate apparatus for formalizing the cross-linguistic variation of conditional constructions, using the Japanese と/たら/ば/なら paradigm as case study (lang-e). Two executable companions run these distinctions in Fluid Construction Grammar: a bidirectional, runnable grammar of the Japanese conditional paradigm (lang-f) and a naming-game model of how a switch-reference convention can self-organise (lang-g).' },
+  { f:'philosophy',  title:'Persistently Reproducible Modules', repos:'phd-a · phd-b · phil-b · phil-c',
+    desc:'A programme organised around Persistently Reproducible Modules (PRM) — biological structures whose organisation is reproducible across phylogenetically independent lineages, formalizing the intuition behind de Duve\'s "frozen accidents." Papers address PRM at molecular and hierarchical scales, and reconstruct de Duve\'s typology of biological singularity philosophically, testing it through the PRM framework.' },
+  { f:'philosophy',  title:'Comparability across special sciences', repos:'phil-a · stat-a',
+    desc:'The cross-domain problem of comparability and reference in biological and linguistic systematics, connecting back to the measurement-invariance findings of the typology work. A formal extension via Formal Concept Analysis and Galois connections, with empirical validation through evolutionary distance metrics.' },
+  { f:'music',       title:'The castrato–countertenor transition', repos:'music-a · music-b',
+    desc:'A two-paper study separating mechanism from function: vocal mechanism (castrato phonation cannot be reproduced by falsetto) is discontinuous; repertoire and institutional function are continuous through a centuries-long chain — travesti contralto, English cathedral falsetto tradition, Alfred Deller. A companion paper examines contemporary performance practice through discography and archival sources.' },
+];
 
-  function toggleTheme() {
-    const root = document.documentElement;
-    const current = root.getAttribute('data-theme');
-    const sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const next = (current || sys) === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    localStorage.setItem('theme', next);
-  }
+const PHLAB  = { review:'Under review', draft:'Draft', progress:'In progress', planned:'Planned' };
+const PHCHIP = { review:'chip-review',  draft:'chip-draft', progress:'chip-prog', planned:'chip-planned' };
+
+const PAPERS = [
+  { id:'lang-a1', title:'Mapping Global Grammatical Diversity: A Network Analysis of Vertical and Horizontal Transmission in Grambank v1.0',      venue:'Language Dynamics and Change',                              f:'linguistics', ph:'review',   yr:2026 },
+  { id:'bio-c',   title:'The Fate of the Sm Fold under Genome Reduction: A Structure-Informed Three-Domain Phylogeny',                           venue:'Genome Biology and Evolution',                              f:'biology',     ph:'draft',    yr:2026 },
+  { id:'lang-a2', title:'Per-feature Estimation of Vertical and Horizontal Transmission in Grambank',                                            venue:'Language Dynamics and Change',                              f:'linguistics', ph:'progress', yr:2026 },
+  { id:'lang-a3', title:'Differential Item Functioning in Typological Databases: Measurement Invariance across Macroareas in Grambank, WALS, and AUTOTYP', venue:'Measurement: Interdisciplinary Research and Perspectives', f:'linguistics', ph:'progress', yr:2026 },
+  { id:'bio-e',   title:'Evolution of the Hfq Regulatory Regime: Reaction-Kinetics Modelling and Ancestral Reconstruction of the Active-Cycling Machinery', venue:'TBD', f:'biology', ph:'progress', yr:2026 },
+  { id:'lang-f',  title:'An Executable, Bidirectional FCG of the Japanese Conditional Paradigm (と / たら / ば / なら)',                          venue:'Constructions and Frames / Journal of Language Modelling',   f:'linguistics', ph:'progress', yr:2026 },
+  { id:'lang-g',  title:'The Emergence of a Switch-Reference Convention: A Naming-Game Study',                                                    venue:'Journal of Language Evolution',                             f:'linguistics', ph:'progress', yr:2026 },
+  { id:'music-a', title:'Mechanism and Function: Rethinking the Castrato–Countertenor Transition',                                               venue:'Early Music (Oxford University Press)',                      f:'music',       ph:'planned',  yr:2028 },
+  { id:'lang-b1', title:'Subject Selection Rules in Case Grammar: A Cross-linguistic Extension',                                                  venue:'Constructions and Frames',                                  f:'linguistics', ph:'planned',  yr:2030 },
+  { id:'phd-a',   title:'Multiple Realizability at the Molecular Level: Applying PRM to Protein Structure',                                       venue:'Biology & Philosophy',                                      f:'philosophy',  ph:'planned',  yr:2031 },
+  { id:'music-b', title:'[Title TBD] — Contemporary performance practice in castrato repertoire',                                                 venue:'Cambridge Opera Journal',                                   f:'music',       ph:'planned',  yr:2031 },
+  { id:'lang-b2a',title:'Rethinking Modality in Case Grammar: Redesigning Fillmore\'s M as an Operator Category',                                venue:'Glossa',                                                    f:'linguistics', ph:'planned',  yr:2034 },
+  { id:'lang-b2b',title:'A Grammar Matrix Modality Library',                                                                                     venue:'Journal of Language Modelling',                             f:'linguistics', ph:'planned',  yr:2034 },
+  { id:'phd-b',   title:'Scale-Independent PRM: A Hierarchical Framework for Biological Organization',                                           venue:'Biology & Philosophy',                                      f:'philosophy',  ph:'planned',  yr:2034 },
+  { id:'phil-b',  title:'Beyond Homeostasis: Reconstructing de Duve\'s Typology of Biological Singularity',                                      venue:'History and Philosophy of the Life Sciences',               f:'philosophy',  ph:'planned',  yr:2038 },
+  { id:'lang-c',  title:'Fillmore as a Grammarian: An Intellectual History of Case Grammar',                                                      venue:'Historiographia Linguistica',                               f:'linguistics', ph:'planned',  yr:2040 },
+  { id:'phil-c',  title:'Frozen Accidents and Reproducible Modules: de Duve\'s Singularity through PRM',                                         venue:'Biology & Philosophy',                                      f:'philosophy',  ph:'planned',  yr:2043 },
+  { id:'lang-b3', title:'An Extended, TFS-Realized Case Grammar (b1×b2 synthesis)',                                                              venue:'Journal of Language Modelling / Constructions and Frames',   f:'linguistics', ph:'planned',  yr:2043 },
+  { id:'lang-d',  title:'Formalizing the Monitor Area: A Feature-Structure Account of Switch-Reference',                                          venue:'Constructions and Frames',                                  f:'linguistics', ph:'planned',  yr:2051 },
+  { id:'phil-a',  title:'Comparability Generalized: A Formal Extension via FCA and Galois Connections',                                          venue:'Synthese',                                                  f:'philosophy',  ph:'planned',  yr:2051 },
+  { id:'stat-a',  title:'Comparability and Measurement Invariance: An Empirical Validation of Evolutionary Distance Metrics',                    venue:'Measurement: Interdisciplinary Research and Perspectives',  f:'philosophy',  ph:'planned',  yr:2051 },
+  { id:'lang-e',  title:'Why Operator Projection? A Formal Justification of RRG for Typological Conditionals',                                    venue:'Glossa',                                                    f:'linguistics', ph:'planned',  yr:2057 },
+];
+
+/* ── State ────────────────────────────────────────────── */
+let AF = 'all', AP = 'all'; // active field / phase filters
+
+/* ── Navigation ───────────────────────────────────────── */
+function nav(btn) {
+  const page = btn.dataset.page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelector('#page-' + page).classList.add('on');
+  document.querySelectorAll('.sb-link').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  if (page === 'publications') renderPubs();
+  if (page === 'research') renderTopics('all'), setResTab('all');
+}
+
+function goField(field) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
+  document.querySelector('#page-research').classList.add('on');
+  document.querySelectorAll('.sb-link').forEach(b => {
+    b.classList.toggle('on', b.dataset.page === 'research');
+  });
+  renderTopics(field);
+  setResTab(field);
+}
+
+/* ── Research ─────────────────────────────────────────── */
+function setResTab(field) {
+  document.querySelectorAll('#res-tabs .tab').forEach(t => {
+    t.classList.toggle('on', t.dataset.f === field);
+  });
+}
+
+function renderTopics(field) {
+  const items = field === 'all' ? TOPICS : TOPICS.filter(t => t.f === field);
+  document.getElementById('topic-list').innerHTML = items.map(t => `
+    <div class="topic" data-f="${t.f}" role="listitem">
+      <div class="topic-ttl">${t.title}</div>
+      <div class="topic-repos">${t.repos}</div>
+      <div class="topic-desc">${t.desc}</div>
+    </div>`).join('');
+}
+
+function resTab(btn) {
+  document.querySelectorAll('#res-tabs .tab').forEach(t => t.classList.remove('on'));
+  btn.classList.add('on');
+  renderTopics(btn.dataset.f);
+}
+
+/* ── Publications ─────────────────────────────────────── */
+function filt(btn) {
+  const type = btn.dataset.t, val = btn.dataset.v;
+  document.querySelectorAll(`.fbtn[data-t="${type}"]`).forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  if (type === 'field') AF = val; else AP = val;
+  renderPubs();
+}
+
+function renderPubs() {
+  const list = PAPERS.filter(p => (AF === 'all' || p.f === AF) && (AP === 'all' || p.ph === AP));
+  document.getElementById('pcount').textContent = `${list.length} paper${list.length !== 1 ? 's' : ''}`;
+  document.getElementById('pub-list').innerHTML = list.map(p => `
+    <div class="pub" data-f="${p.f}" role="listitem">
+      <div>
+        <div class="pub-id">${p.id} · ${p.yr}</div>
+        <div class="pub-ttl">${p.title}</div>
+        <div class="pub-venue">${p.venue}</div>
+      </div>
+      <span class="chip ${PHCHIP[p.ph]}">${PHLAB[p.ph]}</span>
+    </div>`).join('');
+}
+
+/* ── Theme ────────────────────────────────────────────── */
+(function() {
+  const s = localStorage.getItem('theme');
+  if (s) document.documentElement.setAttribute('data-theme', s);
+})();
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const sys = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  const next = (cur || sys) === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+/* ── Init ─────────────────────────────────────────────── */
+renderTopics('all');
+renderPubs();
 </script>
 </body>
 </html>
