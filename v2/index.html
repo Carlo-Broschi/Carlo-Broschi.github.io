@@ -465,7 +465,7 @@ body {
   <div class="hero">
     <h1 class="hero-name">Carlo Broschi</h1>
     <p class="hero-role">Independent Researcher</p>
-    <p class="hero-desc">Sole-authored research across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. Sixteen papers in progress. MA, Keio University. Amateur countertenor.</p>
+    <p class="hero-desc">Sole-authored research across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. Twenty-two papers in progress. MA, Keio University. Amateur countertenor.</p>
   </div>
   <p class="eyebrow">Fields</p>
   <div class="field-grid" role="list">
@@ -476,7 +476,7 @@ body {
     </div>
     <div class="ftile" data-f="linguistics" role="listitem" tabindex="0" onclick="goField('linguistics')" onkeydown="if(event.key==='Enter')goField('linguistics')">
       <div class="ftile-name">Linguistics</div>
-      <div class="ftile-meta">3 topics · 8 papers</div>
+      <div class="ftile-meta">3 topics · 11 papers</div>
       <div class="ftile-desc">Quantitative typology and grammatical formalization in typed feature structures.</div>
     </div>
     <div class="ftile" data-f="philosophy"  role="listitem" tabindex="0" onclick="goField('philosophy')"  onkeydown="if(event.key==='Enter')goField('philosophy')">
@@ -533,7 +533,7 @@ body {
 <!-- ABOUT -->
 <section class="page" id="page-about">
   <p class="eyebrow">About</p>
-  <p class="about-p">I am an independent researcher working as a sole author across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. The programme spans nineteen papers, all in progress, and is designed to be carried out over a lifetime.</p>
+  <p class="about-p">I am an independent researcher working as a sole author across molecular phylogenetics, linguistic typology, grammatical formalization, historical musicology, and philosophy of science. The programme spans twenty-two papers, all in progress, and is designed to be carried out over a lifetime.</p>
   <p class="about-p">The programme has a single deep motivation: evolution. Biological structures change, languages drift, musical traditions transform — and yet comparison across these changes is both indispensable and philosophically fraught. What legitimizes a claim that two proteins share a fold, that two grammatical features are the same, that a countertenor tradition continues a castrato one? The recurring question is what persists through change, and under what conditions persistence licenses comparison.</p>
   <p class="about-p">The answers I am pursuing are structural rather than historical. Persistently Reproducible Modules formalize what evolution reliably reconstructs across independent lineages; typed feature structures make the basis of grammatical comparison explicit; measurement invariance testing asks whether typological databases actually measure the same thing across macroareas. Each is a different angle on the same problem.</p>
   <p class="about-p">Outside research I sing as an amateur countertenor.</p>
@@ -598,10 +598,10 @@ const TOPICS = [
     desc:'A computational study using E-Cell4 reaction-kinetics modelling and ancestral sequence reconstruction to trace when and where Hfq\'s active-cycling machinery was built up or eroded across the bacterial tree.' },
   { f:'linguistics', title:'Quantitative reanalysis of cross-linguistic databases', repos:'lang-a1 · lang-a2 · lang-a3',
     desc:'Three papers reanalyse Grambank, WALS, and AUTOTYP using modern statistical methods: NeighborNet and variation partitioning (lang-a1); Bayesian autologistic estimation of per-feature vertical stability and horizontal diffusibility (lang-a2); and item response theory with differential item functioning to test measurement invariance — 74.8% of Grambank features show DIF across macroareas (lang-a3). The comparability problem motivates the formalization programme and connects to the philosophy of science work.' },
-  { f:'linguistics', title:'Grammatical formalization — case grammar', repos:'lang-b1 · lang-b2a · lang-b2b · lang-c',
-    desc:'A programme formalizing neglected problems in case grammar within typed feature structures and unification. Papers address: cross-linguistic stability of Fillmore\'s subject selection rule; redesign of the Modality node as a radial operator category with a companion Grammar Matrix library; and the intellectual history of case grammar as a research programme. Verification uses the DELPH-IN ecosystem and independently ALE on SWI-Prolog — a triangulation approach.' },
-  { f:'linguistics', title:'Grammatical formalization — construction grammar and RRG', repos:'lang-d · lang-e',
-    desc:'Formalization of Ohori\'s monitor area concept for switch-reference within Construction Grammar using typed feature structures (lang-d), and a meta-theoretical justification of RRG\'s Operator Projection as the appropriate apparatus for formalizing the cross-linguistic variation of conditional constructions, using the Japanese と/たら/ば/なら paradigm as case study (lang-e).' },
+  { f:'linguistics', title:'Grammatical formalization — case grammar', repos:'lang-b1 · lang-b2a · lang-b2b · lang-b3 · lang-c',
+    desc:'A programme formalizing neglected problems in case grammar within typed feature structures and unification. Papers address: cross-linguistic stability of Fillmore\'s subject selection rule; redesign of the Modality node as a radial operator category with a companion Grammar Matrix library; and the intellectual history of case grammar as a research programme. Verification uses the DELPH-IN ecosystem and independently ALE on SWI-Prolog — a triangulation approach. A synthesis project (lang-b3) integrates the subject-selection and modality work into one modernized, TFS-realized Case Grammar.' },
+  { f:'linguistics', title:'Grammatical formalization — construction grammar, RRG, and executable FCG', repos:'lang-d · lang-e · lang-f · lang-g',
+    desc:'Formalization of Ohori\'s monitor area concept for switch-reference within Construction Grammar using typed feature structures (lang-d), and a meta-theoretical justification of RRG\'s Operator Projection as the appropriate apparatus for formalizing the cross-linguistic variation of conditional constructions, using the Japanese と/たら/ば/なら paradigm as case study (lang-e). Two executable companions run these distinctions in Fluid Construction Grammar: a bidirectional, runnable grammar of the Japanese conditional paradigm (lang-f) and a naming-game model of how a switch-reference convention can self-organise (lang-g).' },
   { f:'philosophy',  title:'Persistently Reproducible Modules', repos:'phd-a · phd-b · phil-b · phil-c',
     desc:'A programme organised around Persistently Reproducible Modules (PRM) — biological structures whose organisation is reproducible across phylogenetically independent lineages, formalizing the intuition behind de Duve\'s "frozen accidents." Papers address PRM at molecular and hierarchical scales, and reconstruct de Duve\'s typology of biological singularity philosophically, testing it through the PRM framework.' },
   { f:'philosophy',  title:'Comparability across special sciences', repos:'phil-a · stat-a',
@@ -619,6 +619,8 @@ const PAPERS = [
   { id:'lang-a2', title:'Per-feature Estimation of Vertical and Horizontal Transmission in Grambank',                                            venue:'Language Dynamics and Change',                              f:'linguistics', ph:'progress', yr:2026 },
   { id:'lang-a3', title:'Differential Item Functioning in Typological Databases: Measurement Invariance across Macroareas in Grambank, WALS, and AUTOTYP', venue:'Measurement: Interdisciplinary Research and Perspectives', f:'linguistics', ph:'progress', yr:2026 },
   { id:'bio-e',   title:'Evolution of the Hfq Regulatory Regime: Reaction-Kinetics Modelling and Ancestral Reconstruction of the Active-Cycling Machinery', venue:'TBD', f:'biology', ph:'progress', yr:2026 },
+  { id:'lang-f',  title:'An Executable, Bidirectional FCG of the Japanese Conditional Paradigm (と / たら / ば / なら)',                          venue:'Constructions and Frames / Journal of Language Modelling',   f:'linguistics', ph:'progress', yr:2026 },
+  { id:'lang-g',  title:'The Emergence of a Switch-Reference Convention: A Naming-Game Study',                                                    venue:'Journal of Language Evolution',                             f:'linguistics', ph:'progress', yr:2026 },
   { id:'music-a', title:'Mechanism and Function: Rethinking the Castrato–Countertenor Transition',                                               venue:'Early Music (Oxford University Press)',                      f:'music',       ph:'planned',  yr:2028 },
   { id:'lang-b1', title:'Subject Selection Rules in Case Grammar: A Cross-linguistic Extension',                                                  venue:'Constructions and Frames',                                  f:'linguistics', ph:'planned',  yr:2030 },
   { id:'phd-a',   title:'Multiple Realizability at the Molecular Level: Applying PRM to Protein Structure',                                       venue:'Biology & Philosophy',                                      f:'philosophy',  ph:'planned',  yr:2031 },
@@ -629,6 +631,7 @@ const PAPERS = [
   { id:'phil-b',  title:'Beyond Homeostasis: Reconstructing de Duve\'s Typology of Biological Singularity',                                      venue:'History and Philosophy of the Life Sciences',               f:'philosophy',  ph:'planned',  yr:2038 },
   { id:'lang-c',  title:'Fillmore as a Grammarian: An Intellectual History of Case Grammar',                                                      venue:'Historiographia Linguistica',                               f:'linguistics', ph:'planned',  yr:2040 },
   { id:'phil-c',  title:'Frozen Accidents and Reproducible Modules: de Duve\'s Singularity through PRM',                                         venue:'Biology & Philosophy',                                      f:'philosophy',  ph:'planned',  yr:2043 },
+  { id:'lang-b3', title:'An Extended, TFS-Realized Case Grammar (b1×b2 synthesis)',                                                              venue:'Journal of Language Modelling / Constructions and Frames',   f:'linguistics', ph:'planned',  yr:2043 },
   { id:'lang-d',  title:'Formalizing the Monitor Area: A Feature-Structure Account of Switch-Reference',                                          venue:'Constructions and Frames',                                  f:'linguistics', ph:'planned',  yr:2051 },
   { id:'phil-a',  title:'Comparability Generalized: A Formal Extension via FCA and Galois Connections',                                          venue:'Synthese',                                                  f:'philosophy',  ph:'planned',  yr:2051 },
   { id:'stat-a',  title:'Comparability and Measurement Invariance: An Empirical Validation of Evolutionary Distance Metrics',                    venue:'Measurement: Interdisciplinary Research and Perspectives',  f:'philosophy',  ph:'planned',  yr:2051 },
